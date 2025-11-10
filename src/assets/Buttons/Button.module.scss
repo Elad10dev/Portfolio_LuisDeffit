@@ -1,0 +1,65 @@
+/* src/components/Button/Button.module.scss */
+
+/* Define variables de color para la nueva estética científica */
+$color-accent: #00f0ff;        // Cian brillante
+$color-accent-hover: #00b0c0;  // Cian más oscuro
+$color-button-bg: #2a2a4a;     // Azul oscuro para el fondo de botón
+$color-button-bg-hover: #3a3a5a; // Azul oscuro más claro
+$color-text-light: #b0e0e6;    // Azul claro cian para texto normal
+$color-text-dark: #0d0d1a;     // Casi negro para texto en botones claros
+
+/* Estilo base para todos los botones */
+.buttonBase {
+  padding: 0.75rem 2rem;       // Más padding para un look más robusto
+  border-radius: 6px;          // Bordes ligeramente menos redondeados
+  font-family: 'Orbitron', sans-serif; // Fuente de título para botones
+  font-weight: 600;
+  font-size: 1.1rem;           // Tamaño de fuente un poco más grande
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid $color-accent; // Borde por defecto cian
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; 
+  letter-spacing: 0.05em;      // Espaciado entre letras para un look tecnológico
+
+  &:hover {
+    transform: translateY(-3px) scale(1.02); // Efecto sutil de elevación
+    box-shadow: 0 0 15px rgba($color-accent, 0.7); // Brillo cian al pasar el ratón
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #606080;
+    box-shadow: none;
+  }
+}
+
+/* Estilo para la variante 'light' (para botones de acción principales) */
+.light {
+  background-color: $color-button-bg;
+  color: $color-accent; // Texto cian vibrante
+  border-color: $color-accent;
+
+  &:hover {
+    background-color: $color-button-bg-hover;
+    color: white; // Texto blanco al pasar el ratón
+  }
+}
+
+/* Estilo para la variante 'primary' (usaremos un cian sólido) */
+.primary {
+  background-color: $color-accent;
+  color: $color-text-dark; // Texto oscuro sobre cian brillante
+  border-color: $color-accent;
+
+  &:hover {
+    background-color: $color-accent-hover;
+    border-color: $color-accent-hover;
+    color: white;
+  }
+}
+
+/* Puedes añadir más variantes si necesitas para otros propósitos */
+/* .danger, .secondary, .aws etc. */

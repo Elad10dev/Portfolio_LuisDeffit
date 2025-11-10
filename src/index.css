@@ -1,0 +1,67 @@
+/* src/index.css */
+/* --- GOOGLE FONTS IMPORTS (Futuristas y Limpias) --- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+
+/* --- RESET BÁSICO --- */
+body, h1, h2, h3, h4, h5, h6, p, a, button {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace; /* Fuente más legible y técnica */
+  color: #b0e0e6; /* Azul claro cian para texto general */
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif; /* Fuente impactante para títulos */
+  color: #00f0ff; /* Cian brillante para destacar */
+  line-height: 1.2;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+  /* --- ¡NUEVO FONDO CIENTÍFICO! --- */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.623), rgba(0, 0, 0, 0.503)), 
+    url('https://wallpapers.com/images/featured/sala-comun-de-slytherin-2ssg552t0qzmp5dd.jpg'); /* Imagen de placa de circuito o tecnología */
+  
+  background-color: #0d0d1a; /* Azul oscuro casi negro */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+a {
+  font-weight: 500;
+  color: #00f0ff; /* Cian brillante para enlaces */
+  text-decoration: none;
+}
+a:hover {
+  color: #00b0c0; /* Cian un poco más oscuro al pasar el ratón */
+  text-decoration: underline;
+}
+
+/* --- ANIMACIONES GLOBALES (Ajustadas para la nueva estética) --- */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseBorder {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+}

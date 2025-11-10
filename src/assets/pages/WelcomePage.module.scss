@@ -1,0 +1,161 @@
+/* src/pages/WelcomePage.module.scss */
+
+/* Contenedor principal de la página */
+.welcomePage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+/* Superposición para el fondo, con un toque más de profundidad */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 15, 0.7), rgba(0, 0, 0, 0.9));
+  z-index: 1;
+}
+
+/* Contenedor del contenido principal */
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px; // Un poco más ancho
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem; // Más padding
+  background-color: rgba(10, 10, 20, 0.7); // Fondo semitransparente oscuro
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.5); // Sombra que brilla cian
+  animation: fadeIn 1.2s ease-out;
+}
+
+/* Estilos de texto - ¡Más grandes y audaces! */
+.name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem; /* Más grande */
+  font-weight: 800;
+  color: #00f0ff; /* Cian brillante */
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+  animation: fadeInDown 1s ease-out;
+
+  @media (min-width: 640px) {
+    font-size: 4.5rem; /* Aún más grande en escritorio */
+  }
+}
+
+.title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5rem; /* Más grande */
+  font-weight: 400;
+  color: #e0f2f7; /* Blanco azulado */
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 1s ease-out 0.3s backwards;
+  
+  @media (min-width: 640px) {
+    font-size: 2.25rem; /* Más grande en escritorio */
+  }
+}
+
+.tagline {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #ff4081; /* Rosa neón para el lema */
+  margin-bottom: 3rem;
+  animation: fadeInUp 1s ease-out 0.6s backwards;
+
+  @media (min-width: 640px) {
+    font-size: 1.5rem;
+  }
+}
+
+/* Grupo de botones */
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; // Más espacio
+  width: 100%;
+  max-width: 600px;
+  animation: fadeInUp 1s ease-out 0.9s backwards;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    gap: 2rem; // Más espacio en escritorio
+  }
+}
+
+.button {
+  width: 100%;
+  
+  @media (min-width: 640px) {
+    width: auto;
+    flex-grow: 1;
+  }
+}
+
+/* Header (botones circulares) */
+.header {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.75rem;
+  animation: fadeIn 1s ease-out 1.2s backwards;
+
+  @media (min-width: 768px) {
+    top: 2.5rem;
+    right: 2.5rem;
+  }
+}
+
+.iconButton {
+  width: 3rem;  // Más grandes
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: rgba(20, 20, 40, 0.8); // Fondo oscuro
+  border: 2px solid #00f0ff; // Borde cian
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00f0ff; // Icono cian
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+
+  &:hover {
+    background-color: rgba(30, 30, 60, 1);
+    color: white;
+    transform: scale(1.15); // Un poco más de "salto"
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    animation: pulseBorder 1.5s infinite; // Animación de pulso
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 3.5rem;
+    height: 3.5rem;
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+}
