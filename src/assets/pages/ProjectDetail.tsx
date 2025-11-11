@@ -12,7 +12,7 @@ import ImgCertificado5 from '../img/Certificado 5.png';
 import ImgCertificado6 from '../img/Certificado 6.png'; 
 import ImgCertificado7 from '../img/Certificado 7.png'; 
 import ImgCertificado8 from '../img/Certificado 8.png'; 
-import ImgCertificado9 from '../img/Certificado 9.png'; 
+import ImgCertificado9 from '../img/certificado 9.png'; 
 import ImgCertificado10 from '../img/Certificado 10.png'; 
 import ImgCertificado11 from '../img/Certificado 11.png'; 
 import ImgCertificado12 from '../img/Certificado 12.png'; 
