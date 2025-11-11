@@ -159,3 +159,51 @@
     }
   }
 }
+
+/* AÑADE ESTO (o reemplaza los estilos que te di en la respuesta anterior si los usaste) */
+.profileContainer {
+    /* 1. CONFIGURACIÓN BASE (MÓVIL) */
+    display: flex;
+    flex-direction: column; /* La imagen y el texto se apilan verticalmente */
+    align-items: center; /* Centra los elementos (imagen y texto) horizontalmente */
+    text-align: center; /* Centra el texto */
+    margin-bottom: 3rem; 
+    width: 100%;
+
+    @media (min-width: 768px) {
+        /* 2. CONFIGURACIÓN DESKTOP (CRÍTICO) */
+        flex-direction: row; /* ¡Aquí es donde la imagen va a la izquierda del texto! */
+        align-items: flex-start; /* Alinea los elementos a la parte superior */
+        gap: 3rem; /* Espacio entre la foto y el texto */
+        text-align: left; /* Alinea el texto a la izquierda */
+    }
+}
+
+.profilePic {
+    margin-bottom: 5%; /* Mantiene un espacio inferior en móvil */
+    width: 200px; 
+    height: 200px;
+    border-radius: 9999px;
+    border: 4px solid #00f0ff; 
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); 
+    flex-shrink: 0; /* IMPEDIR que la imagen se encoja */
+    
+    @media (min-width: 768px) {
+        margin-bottom: 0; /* Quita el margen en desktop */
+    }
+}
+
+.bioContainer {
+    flex-grow: 1; /* Permite que el contenedor de texto ocupe todo el espacio restante */
+}
+
+
+/* También asegúrate de que los estilos de texto se alineen a la izquierda en desktop */
+
+.name, .title, .tagline, .contactLinkText {
+  
+    @media (min-width: 768px) {
+        text-align: left !important; 
+    }
+}

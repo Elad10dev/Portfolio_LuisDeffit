@@ -3,89 +3,127 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../Buttons/Button';
 
 interface ProjectCardProps {
-    id: string;
-    title: string;
-    shortDescription: string;
-    image: string; // URL de la imagen (placeholder)
-    tags: string[];
+    id: string;
+    title: string;
+    shortDescription: string;
+    image: string; // URL de la imagen (placeholder)
+    tags: string[];
+    // Usaremos el ID para la navegación principal
+    demoUrl?: string; 
+    repoUrl?: string;
 }
 
 export function ProjectCard({ id, title, shortDescription, image, tags }: ProjectCardProps) {
-    const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const cardStyle: React.CSSProperties = {
-        fontFamily: 'Roboto Mono, monospace',
-        backgroundColor: 'rgba(10, 10, 25, 0.9)',
-        border: '1px solid #00f0ff',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
-        overflow: 'hidden',
-        transition: 'transform 0.3s, box-shadow 0.3s',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
+    const cardStyle: React.CSSProperties = {
+        fontFamily: 'Roboto Mono, monospace',
+        backgroundColor: 'rgba(10, 10, 25, 0.9)',
+        border: '1px solid #00f0ff',
+        borderRadius: '8px',
+        boxShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
+        overflow: 'hidden',
+        transition: 'transform 0.3s, box-shadow 0.3s',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+    };
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.currentTarget.style.transform = 'translateY(-5px)';
+        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 240, 255, 0.5)';
+    };
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 240, 255, 0.3)';
+    };
+
+    // Función de navegación unificada
+    const handleNavigate = () => {
+        // Redirige a la página detallada del proyecto usando el ID
+        navigate(`/project/${id}`);
+    };
+    
+    // Función de navegación para abrir en nueva pestaña (se mantiene, pero no se usa en el botón principal)
+    const openLink = (url: string) => {
+        if (url !== "#") {
+            window.open(url, '_blank');
+        }
     };
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.currentTarget.style.transform = 'translateY(-5px)';
-        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 240, 255, 0.5)';
-    };
 
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 240, 255, 0.3)';
-    };
+    return (
+        <div 
+            style={cardStyle}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
+            {/* 1. IMAGEN DE ENCABEZADO (Banner Superior) */}
+            <img 
+                src={image} 
+                alt={`Imagen del proyecto ${title}`} 
+                style={{ 
+                    width: '100%', 
+                    height: '250px', // <-- Aumentamos la altura del banner
+                    objectFit: 'cover', 
+                    borderBottom: '2px solid #ff4081', 
+                    filter: 'grayscale(10%) brightness(120%)' 
+                }}
+            />
 
-    return (
-        <div 
-            style={cardStyle}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
-            <img 
-                src={image} 
-                alt={`Imagen del proyecto ${title}`} 
-                style={{ 
-                    width: '100%', 
-                    height: '200px', 
-                    objectFit: 'cover', 
-                    borderBottom: '2px solid #ff4081', 
-                    filter: 'grayscale(10%) brightness(120%)' 
-                }}
-            />
-            <div style={{ padding: '1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ 
-                    fontFamily: 'Orbitron, sans-serif',
-                    color: '#ff4081', 
-                    fontSize: '1.2rem',
-                    marginBottom: '0.75rem'
+            <div style={{ padding: '1rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                
+                {/* TÍTULO */}
+                <h3 style={{ 
+                    fontFamily: 'Orbitron, sans-serif',
+                    color: '#00f0ff',
+                    fontSize: '1.4rem', // Ligeramente más pequeño
+                    marginBottom: '0.5rem',
+                    textShadow: '0 0 5px rgba(0, 240, 255, 0.5)'
+                }}>
+                    // {title}
+                </h3>
+
+                {/* DESCRIPCIÓN COMPACTA */}
+                <p style={{ color: '#b0e0e6', fontSize: '0.8rem', flexGrow: 1, marginBottom: '0.5rem' }}>
+                    {shortDescription}
+                </p>
+
+                {/* TAGS (Estilo de íconos/compacto. Aquí irían los iconos de React-Icons) */}
+                <div style={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: '0.5rem', 
+                    marginBottom: '1rem',
+                    paddingTop: '0.5rem',
+                    borderTop: '1px dashed rgba(255, 64, 129, 0.2)'
                 }}>
-                    // {title}
-                </h3>
-                <p style={{ color: '#b0e0e6', fontSize: '0.9rem', marginBottom: '1rem', flexGrow: 1 }}>
-                    {shortDescription}
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
-                    {tags.map(tag => (
-                        <span key={tag} style={{
-                            backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                            color: '#00f0ff',
-                            padding: '0.25rem 0.5rem',
-                            borderRadius: '4px',
-                            fontSize: '0.7rem',
-                            border: '1px solid #00f0ff'
-                        }}>
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-                <Button 
-                    onClick={() => navigate(`/project/${id}`)}
-                    variant="primary"
-                >
-                    Ver Protocolo &gt;
-                </Button>
-            </div>
-        </div>
-    );
+                    {/* Actualmente usando texto. Si instalas react-icons, puedes reemplazarlos por <FaReact /> */}
+                    {tags.map(tag => (
+                        <span key={tag} style={{
+                            backgroundColor: 'transparent', 
+                            color: '#00f0ff', 
+                            padding: '0 0.2rem', // Compacto
+                            borderRadius: '2px',
+                            fontSize: '0.7rem',
+                            border: 'none' // Sin borde
+                        }}>
+                            [{tag}]
+                        </span>
+                    ))}
+                </div>
+                
+                {/* BOTÓN UNIFICADO */}
+                <Button
+                    onClick={handleNavigate} // <-- USAMOS LA FUNCIÓN UNIFICADA
+                    variant="primary"
+                    style={{ width: '100%', padding: '0.75rem 0' }} // Botón ancho y grande
+                >
+                    Acceder al Protocolo &gt;
+                </Button>
+
+            </div>
+        </div>
+    );
 }
