@@ -44,10 +44,10 @@ export function AboutMePage() {
         <div style={{ position: 'relative', padding: '1rem 0' }}>
             <h2 style={{ 
                 fontFamily: 'Orbitron, sans-serif',
-                color: '#ff4081',
+                color: '#9c2da6',
                 fontSize: '2rem',
                 textAlign: 'center',
-                textShadow: '0 0 10px rgba(255, 64, 129, 0.4)',
+                textShadow: '#9c2da6',
                 marginBottom: '3rem'
             }}>
                 [ Trayectoria y Protocolos de Avance ]

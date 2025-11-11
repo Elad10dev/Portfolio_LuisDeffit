@@ -46,11 +46,6 @@ export function ProjectCard({ id, title, shortDescription, image, tags }: Projec
     };
     
     // Función de navegación para abrir en nueva pestaña (se mantiene, pero no se usa en el botón principal)
-    const openLink = (url: string) => {
-        if (url !== "#") {
-            window.open(url, '_blank');
-        }
-    };
 
 
     return (
@@ -67,7 +62,7 @@ export function ProjectCard({ id, title, shortDescription, image, tags }: Projec
                     width: '100%', 
                     height: '250px', // <-- Aumentamos la altura del banner
                     objectFit: 'cover', 
-                    borderBottom: '2px solid #ff4081', 
+                    borderBottom: '2px solid #9c2da6', 
                     filter: 'grayscale(10%) brightness(120%)' 
                 }}
             />
@@ -97,7 +92,7 @@ export function ProjectCard({ id, title, shortDescription, image, tags }: Projec
                     gap: '0.5rem', 
                     marginBottom: '1rem',
                     paddingTop: '0.5rem',
-                    borderTop: '1px dashed rgba(255, 64, 129, 0.2)'
+                    borderTop: '#9c2da6'
                 }}>
                     {/* Actualmente usando texto. Si instalas react-icons, puedes reemplazarlos por <FaReact /> */}
                     {tags.map(tag => (

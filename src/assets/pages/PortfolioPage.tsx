@@ -1,36 +1,35 @@
 import React from 'react';
 import { ProjectCard } from '../modules/ProjectsCards'; // ¡IMPORTACIÓN CORREGIDA!
 
-// Array de datos de proyectos para el cliente
+// --- NUEVA IMPORTACIÓN ---
+// Importamos la imagen del certificado para usarla en la tarjeta
+import ImgCertificado1 from '../img/Certificado 1.jpeg'; 
+
+// --- LISTA DE PROYECTOS ACTUALIZADA ---
+// Sincronizada con los datos de ProjectDetail.jsx
 const projectList = [
     {
-        id: 'ia-analyzer',
-        title: 'Quantum AI Analyzer',
-        shortDescription: 'Implementación de un modelo de análisis predictivo basado en redes neuronales, desplegado en un cluster de Kubernetes en AWS.',
-        image: 'https://placehold.co/600x400/101020/00f0ff?text=AI+MODEL',
-        tags: ['AWS EKS', 'TensorFlow', 'Python', 'Go']
+        id: 'ia-analyzer', // Mantenemos el ID para que la ruta funcione
+        title: 'Certificación Profesional: Google Data Analytics',
+        shortDescription: 'Certificación en el ciclo de vida completo del análisis de datos usando SQL, R y Tableau.',
+        image: ImgCertificado1, // Usamos la imagen importada
+        tags: ['SQL', 'R', 'Tableau', 'Google']
     },
     {
         id: 'cloud-infra',
         title: 'Infraestructura Serverless',
-        shortDescription: 'Diseño y despliegue de una arquitectura Serverless completa (Lambda, DynamoDB, API Gateway) para un cliente Fintech.',
-        image: 'https://placehold.co/600x400/101020/ff4081?text=SERVERLESS+ARCHITECTURE',
-        tags: ['AWS Lambda', 'DynamoDB', 'Serverless Framework', 'TypeScript']
+        shortDescription: 'Diseño de arquitectura Serverless (Lambda, DynamoDB, SQS) para un cliente Fintech.',
+        image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=SERVERLESS+ARCHITECTURE',
+        tags: ['AWS Lambda', 'DynamoDB', 'Serverless', 'TypeScript']
     },
     {
         id: 'e-commerce-v3',
         title: 'Plataforma E-commerce Escalable',
-        shortDescription: 'Reingeniería de una plataforma de comercio electrónico para soportar 10k transacciones/segundo usando Microservicios y RabbitMQ.',
-        image: 'https://placehold.co/600x400/101020/00f0ff?text=E-COMMERCE+MICROSERVICES',
-        tags: ['Microservicios', 'RabbitMQ', 'Docker', 'React']
-    },
-    {
-        id: 'data-pipeline',
-        title: 'Data Pipeline Automation',
-        shortDescription: 'Automatización de ETL/ELT para procesamiento de big data usando Apache Spark y Amazon Redshift, optimizando tiempos de consulta.',
-        image: 'https://placehold.co/600x400/101020/ff4081?text=DATA+ENGINEERING',
-        tags: ['Spark', 'Redshift', 'ETL', 'Scala']
+        shortDescription: 'Reingeniería de monolito a microservicios (NestJS, RabbitMQ) para 10k transacciones/segundo.',
+        image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=E-COMMERCE+MICROSERVICES',
+        tags: ['Microservicios', 'NestJS', 'RabbitMQ', 'Docker']
     }
+    // Se eliminó el proyecto 'data-pipeline' para que coincida con ProjectDetail
 ];
 
 export function PortfolioPage() {
@@ -47,14 +46,15 @@ export function PortfolioPage() {
     return (
         <div>
             <h2 style={{ 
-                fontFamily: 'Orbitron, sans-serif',
-                color: '#ff4081',
-                fontSize: '2rem',
+                fontFamily: 'Poppins, sans-serif', // <-- FUENTE ACTUALIZADA
+                fontWeight: 800, // <-- Peso añadido
+                color: '#9c2da6',
+                fontSize: '2.5rem', // <-- Tamaño ajustado
                 textAlign: 'center',
-                textShadow: '0 0 10px rgba(255, 64, 129, 0.4)',
-                marginBottom: '1rem'
+                textShadow: '0 0 10px rgba(156, 45, 166, 0.5)', // <-- Sombra corregida
+                marginBottom: '2rem' // <-- Más espacio
             }}>
-                [ Proyectos de Alta Disponibilidad ]
+                [ Proyectos Destacados ]
             </h2>
 
             <div style={gridStyle}>

@@ -1,19 +1,20 @@
 /* src/index.css */
 /* --- GOOGLE FONTS IMPORTS (Futuristas y Limpias) --- */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+/* Importamos Poppins para ser la fuente principal para títulos y cuerpo */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 /* --- RESET BÁSICO --- */
 body, h1, h2, h3, h4, h5, h6, p, a, button {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto Mono', monospace; /* Fuente más legible y técnica */
+  font-family: 'Poppins', sans-serif; /* Fuente principal: Poppins */
   color: #b0e0e6; /* Azul claro cian para texto general */
   box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Orbitron', sans-serif; /* Fuente impactante para títulos */
+  font-family: 'Poppins', sans-serif; /* Fuente impactante para títulos (usaremos pesos pesados) */
+  font-weight: 800; /* Asegura que los títulos sean audaces */
   color: #00f0ff; /* Cian brillante para destacar */
   line-height: 1.2;
 }
@@ -23,10 +24,10 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   
-  /* --- ¡NUEVO FONDO CIENTÍFICO! --- */
+  /* --- FONDO CIENTÍFICO --- */
   background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.623), rgba(0, 0, 0, 0.503)), 
-    url('https://wallpapers.com/images/featured/sala-comun-de-slytherin-2ssg552t0qzmp5dd.jpg'); /* Imagen de placa de circuito o tecnología */
+    linear-gradient(rgba(0, 0, 0, 0.623), rgba(0, 0, 0, 0.426)), 
+    url('./assets/img/inicio fondo.jpg'); /* Imagen de placa de circuito o tecnología */
   
   background-color: #0d0d1a; /* Azul oscuro casi negro */
   background-size: cover;

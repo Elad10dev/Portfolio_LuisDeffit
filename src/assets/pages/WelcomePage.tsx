@@ -1,16 +1,18 @@
 import { Button } from '../Buttons/Button'; 
 import { useNavigate } from 'react-router-dom';
 import styles from './WelcomePage.module.scss';
-// 💡 Asume que tienes una imagen de perfil en el path:
-import ProfilePic from '../../assets/Luis Deffit.png'; // <--- NUEVA IMPORTACIÓN DE IMAGEN
+// Ya no necesitamos esta importación si eliminamos la imagen.
+// import ProfilePic from '../../assets/img/Luis Deffit.png'; 
 
 // Datos de ejemplo para el cliente
+// Datos de ejemplo para el cliente
 const portfolioData = {
-  name: "Luis A. Gutierrez Deffit",
-  title: "Investigador Senior en IA & Arquitecto de Sistemas Cuánticos",
-  tagline: "Optimizando algoritmos neuronales para la próxima generación de computación. Innovación es mi protocolo.",
+  name: "Luis Alejandro Gutiérrez Deffit",
+  title: "Data Analyst | Business Intelligence | Automatización", // Título resumido para el impacto
+  tagline: "Especialista en BI: 3+ años impulsando decisiones críticas en salud a través de Databricks, Azure y automatización de KPIs.", // Tagline optimizado
   phone:"+54 11 2389 8273"
 };
+
 
 export function WelcomePage() {
   const navigate = useNavigate();
@@ -28,28 +30,18 @@ export function WelcomePage() {
       {/* CONTENIDO PRINCIPAL CENTRADO */}
       <div className={styles.content}>
         
-        {/* ⭐ CONTENEDOR DE PERFIL: IMAGEN + TEXTO HORIZONTAL (Esto sustituye a 'aboutContent' y a 'profileContainer' si lo vas a usar) */}
-        {/* Usaremos 'profileContainer' o 'aboutContent' dependiendo de cómo lo llames en el SCSS */}
-        <div className={styles.profileContainer}> 
+        {/* ⭐ CONTENEDOR DE PERFIL: Ahora solo contendrá el texto ⭐ */}
+        <div className={styles.profileContainer}> 
           
-          {/* 1. IMAGEN DE PERFIL */}
-          <img
-            src={ProfilePic}
-            alt={portfolioData.name}
-            className={styles.profilePic}
-          />
+          {/* 1. IMAGEN DE PERFIL ELIMINADA */}
           
           {/* 2. CONTENEDOR DE TEXTO DE BIO */}
           <div className={styles.bioContainer}>
             {/* TÍTULO PRINCIPAL (usando bioTitle) */}
             <h1 className={styles.name}> 
-                {portfolioData.name}
-            </h1>
+                {portfolioData.name}
+            </h1>
             
-            {/* CAMPO EXTRA (Teléfono) */}
-            <p className={styles.contactLinkText}>
-              **Teléfono:** {portfolioData.phone}
-            </p>
             
             {/* SUBTÍTULO (usando title) */}
             <p className={styles.title}>{portfolioData.title}</p>

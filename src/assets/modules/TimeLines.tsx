@@ -35,10 +35,10 @@ export function TimelineEntry({ year, title, description, isRight }: TimelineEnt
 
     const yearStyle: React.CSSProperties = {
         fontFamily: 'Orbitron, sans-serif',
-        color: '#ff4081', // Rosa neón para el año
+        color: '#9c2da6', // Rosa neón para el año
         fontSize: '1.8rem',
         marginBottom: '0.5rem',
-        textShadow: '0 0 5px rgba(255, 64, 129, 0.6)'
+        textShadow: '#9c2da6'
     };
     
     const titleStyle: React.CSSProperties = {
