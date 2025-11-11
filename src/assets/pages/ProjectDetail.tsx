@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// Importo un icono simple para las flechas (usaré un carácter Unicode o lo simularé con CSS)
 import { Button } from '../Buttons/Button'; 
 import ImgFondo from '../img/proyectos fondo.jpg'; 
 
-// --- 1. IMPORTACIONES DE CERTIFICADOS Y CV (Sin cambios) ---
-// Certificado principal
+// --- 1. IMPORTACIONES DE CERTIFICADOS Y CV ---
 import ImgCertificado1 from '../img/Certificado 1.jpeg'; 
-
-// Importaciones de los 12 certificados adicionales
 import ImgCertificado2 from '../img/Certificado 2.png'; 
 import ImgCertificado4 from '../img/Certificado 3.png'; 
 import ImgCertificado3 from '../img/Certificado 4.png'; 
@@ -25,90 +21,137 @@ import ImgCertificado13 from '../img/certificado 13.png';
 import CVEsp from '../img/1.CV_Luis_Gutierrez_Deffit_ES.pdf';
 import CVEng from '../img/1.Data analytics -LuisDeffit .pdf';
 
+// --- URLs DE CERTIFICADOS (REVISADAS Y ORDENADAS) ---
+const certificateUrls = [
+    'https://credentials.databricks.com/dea4bbba-8692-4be0-9586-108c424abdb9#acc.04a7uXkO', 
+    'https://www.credly.com/badges/1bd2916f-65b2-43b4-9f10-f4ade109f88c/linked_in_profile', 
+    'https://cursos.desafiolatam.com/certificates/yzozngeew2', 
+    'https://www.credly.com/badges/c2da7100-fd01-4ebf-a3d9-db7a208a0103/linked_in_profile', 
+    'https://www.linkedin.com/learning/certificates/72fe157dfcdd4a252ae345d6c3f39b6db851c495144a836c73bafdf3e106e488?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/14ff82d34ec4c6a3320989830bb7955dfa00f5574edc8002f73d6c527df41416?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/0661b247961d0d01c9de69215aed8332f5259428410c75e7f25a335f48a8c4fb?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/78cb35f1713bc6fe41e243d60f73d26c9f631f8e0de001c6fa96f5fe6b339a6b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/3a2f0e19b0ca05934d80bbe3028ff59d49fe24bb93a4e2eb2cb369bcfa1411af?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/ccc5d87523361e438fdd44fd469c1399a4e50b3661b20fc36832c9a40c1f8237?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D', 
+    'https://www.linkedin.com/learning/certificates/5800c6f191b7a9fa40b0aed07f0f1671df051a30e4ce305dd5a78f1e0f902858?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D',
+    'https://www.linkedin.com/learning/certificates/24f90b16c03681ccf0f76fd16e8b922f07c5d9a57a8e0a671f83f019e0a2030e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D',
+    'https://www.linkedin.com/learning/certificates/621b98c26ea38cae31381a3623fa4d2fb9633daff9fc05ed867cef8c67c3876b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Bvsesy5mJTrKWYL6cH2EvTg%3D%3D'
+];
+
 // --- 2. ASIGNACIÓN DE IMPORTACIONES Y CREACIÓN DEL ARRAY DE CERTIFICADOS (Sin cambios) ---
 const allCertificates = [
-    ImgCertificado1, 
-    ImgCertificado2, 
-    ImgCertificado3, 
-    ImgCertificado4, 
-    ImgCertificado5, 
-    ImgCertificado6, 
-    ImgCertificado7, 
-    ImgCertificado8, 
-    ImgCertificado9, 
-    ImgCertificado10, 
-    ImgCertificado11, 
-    ImgCertificado12, 
+    ImgCertificado1, ImgCertificado2, ImgCertificado3, ImgCertificado4, 
+    ImgCertificado5, ImgCertificado6, ImgCertificado7, ImgCertificado8, 
+    ImgCertificado9, ImgCertificado10, ImgCertificado11, ImgCertificado12, 
     ImgCertificado13, 
 ];
 
 const cvEsp = CVEsp; 
 const cvEng = CVEng; 
 
-// --- DETALLES DE CADA CERTIFICADO (ACTUALIZADO: Títulos simplificados y enfoque en valor para reclutadores) ---
+// --- DETALLES DE CADA CERTIFICADO (ACTUALIZADO con descripción y habilidades) ---
 const certificateDetails = [
     { 
         title: 'Certificación Profesional: Data Analytics (Completa)',
-        description: 'He **dominado** el ciclo completo de análisis de datos, desde la formulación de hipótesis hasta la entrega de un *storytelling* convincente. Mis habilidades abarcan la manipulación de datos con **SQL** y **R**, y la visualización de resultados clave en **Tableau**.',
+        url: ImgCertificado1,
+        description: 'He **dominado** el ciclo completo de análisis de datos, desde la formulación de hipótesis hasta la entrega de un *storytelling* convincente. Mis habilidades abarcan la manipulación de datos y la visualización de resultados clave.',
+        skills: ['SQL', 'R', 'Tableau', 'Storytelling'],
+        emojis: ['📊', '💻', '💡']
     },
     { 
         title: 'Fundamentos del Análisis de Datos',
-        description: 'Establecí una base sólida, entendiendo mi rol como analista para **transformar datos brutos en inteligencia de negocio**. Esto me permite identificar y aplicar metodologías de análisis que impulsan el crecimiento.',
+        url: certificateUrls[0],
+        description: 'Establecí una base sólida, entendiendo mi rol como analista para **transformar datos brutos en inteligencia de negocio**. Esto me permite aplicar metodologías de análisis que impulsan el crecimiento.',
+        skills: ['Pensamiento Analítico', 'Metodologías', 'Inteligencia de Negocio'],
+        emojis: ['🧠', '📈']
     },
     { 
         title: 'Toma de Decisiones basada en Preguntas',
-        description: 'Desarrollé la capacidad de **plantear las preguntas de negocio correctas**. Utilizo el pensamiento estructurado para guiar la exploración de datos y asegurar que el análisis siempre se alinee con los objetivos estratégicos.',
+        url: certificateUrls[2],
+        description: 'Desarrollé la capacidad de **plantear las preguntas de negocio correctas**. Utilizo el pensamiento estructurado para guiar la exploración de datos y alinear el análisis con los objetivos estratégicos.',
+        skills: ['Formulación de Preguntas', 'Estrategia', 'Exploración de Datos'],
+        emojis: ['❓', '🎯']
     },
     { 
         title: 'Preparación de Datos para la Exploración',
-        description: 'Soy experto en **limpiar, transformar y organizar grandes volúmenes de datos** utilizando Google Sheets y herramientas de gestión de calidad. Mi enfoque es garantizar la integridad y fiabilidad de la información antes de cualquier análisis.',
+        url: certificateUrls[1],
+        description: 'Soy experto en **limpiar, transformar y organizar grandes volúmenes de datos**. Mi enfoque es garantizar la integridad y fiabilidad de la información antes de cualquier análisis.',
+        skills: ['Data Cleaning', 'Google Sheets', 'Calidad de Datos'],
+        emojis: ['🧼', '⚙️']
     },
     { 
         title: 'Procesamiento de Datos con SQL',
-        description: 'Tengo un fuerte dominio de **SQL** para la manipulación avanzada de bases de datos. Soy capaz de realizar **joins, filtros y agregaciones complejas** para preparar *datasets* listos para modelos estadísticos o visualización.',
+        url: certificateUrls[4],
+        description: 'Tengo un fuerte dominio de **SQL** para la manipulación avanzada de bases de datos. Soy capaz de realizar **joins, filtros y agregaciones complejas**.',
+        skills: ['Consultas SQL', 'Agregaciones', 'Bases de Datos'],
+        emojis: ['🐘', '💾']
     },
     { 
         title: 'Análisis de Datos para la Acción',
-        description: 'Mi habilidad radica en aplicar **métodos estadísticos y técnicas de modelado** para descubrir patrones ocultos y tendencias. Esto se traduce en *insights* concretos que mis equipos pueden utilizar inmediatamente para tomar decisiones.',
+        url: certificateUrls[13],
+        description: 'Mi habilidad radica en aplicar **métodos estadísticos y técnicas de modelado** para descubrir patrones ocultos y tendencias. Esto se traduce en *insights* concretos para la toma de decisiones.',
+        skills: ['Estadística', 'Modelado', 'Descubrimiento de Patrones'],
+        emojis: ['🔬', '🌟']
     },
     { 
         title: 'Visualización de Datos con Tableau',
-        description: 'Soy capaz de **diseñar y construir cuadros de mando (dashboards) dinámicos** y atractivos en **Tableau**. Convierto hallazgos complejos en historias visuales sencillas para que cualquier audiencia pueda entender el valor de los datos.',
+        url: certificateUrls[5],
+        description: 'Soy capaz de **diseñar y construir cuadros de mando (dashboards) dinámicos** y atractivos en **Tableau**. Convierto hallazgos complejos en historias visuales sencillas.',
+        skills: ['Tableau', 'Dashboards', 'KPIs', 'Storytelling Visual'],
+        emojis: ['🎨', '🖥️']
     },
     { 
         title: 'Programación con R para Análisis',
-        description: 'He adquirido conocimientos de programación en **R**, centrándome en el uso del ecosistema **Tidyverse**. Esta herramienta me permite escalar mi capacidad de manipulación y exploración de datos de forma eficiente.',
+        url: certificateUrls[6],
+        description: 'He adquirido conocimientos de programación en **R**, centrándome en el uso del ecosistema **Tidyverse**. Esta herramienta me permite escalar mi capacidad de manipulación y exploración de datos.',
+        skills: ['Lenguaje R', 'RStudio', 'Tidyverse'],
+        emojis: ['💻', '📈']
     },
     { 
         title: 'Manipulación de Datos en R (Tidyverse)',
-        description: 'Aprovecho la potencia de **Tidyverse** (especialmente *dplyr*) para ejecutar transformaciones de datos complejas. Esto me permite limpiar, reestructurar y resumir información de manera programática y reproducible.',
+        url: certificateUrls[7],
+        description: 'Aprovecho la potencia de **Tidyverse** (*dplyr*) para ejecutar transformaciones de datos complejas. Esto me permite limpiar, reestructurar y resumir información de manera programática y reproducible.',
+        skills: ['Tidyverse', 'dplyr', 'Reproducibilidad'],
+        emojis: ['🔗', '🔄']
     },
     { 
         title: 'Creación de Visualizaciones en R (ggplot2)',
-        description: 'Utilizo la librería **ggplot2** de R para crear **gráficos estadísticos personalizados y de alta calidad**. Esto es crucial para comunicar relaciones complejas en los datos con claridad y precisión profesional.',
+        url: certificateUrls[8],
+        description: 'Utilizo la librería **ggplot2** de R para crear **gráficos estadísticos personalizados y de alta calidad**. Crucial para comunicar relaciones complejas en los datos con claridad.',
+        skills: ['ggplot2', 'Visualización Avanzada', 'Personalización'],
+        emojis: ['📊', '✨']
     },
     { 
         title: 'El Arte del Storytelling con Datos',
-        description: 'Mi valor no termina en el análisis, sino en la **comunicación**. Soy hábil para estructurar una narrativa persuasiva que transforma mis hallazgos en recomendaciones de negocio claras e influyentes para la alta dirección.',
+        url: certificateUrls[9],
+        description: 'Mi valor no termina en el análisis, sino en la **comunicación**. Soy hábil para estructurar una narrativa persuasiva que transforma mis hallazgos en recomendaciones de negocio influyentes.',
+        skills: ['Narrativa de Datos', 'Comunicación Ejecutiva', 'Persuasión'],
+        emojis: ['🗣️', '📝']
     },
     { 
         title: 'Proyecto Final de Análisis de Datos Aplicado',
-        description: 'Este proyecto fue la **prueba de fuego**. Apliqué mi conjunto de herramientas completo (**SQL, R, Tableau**) para resolver un problema de negocio real, demostrando mi capacidad para entregar una solución de datos integral y con impacto.',
+        url: certificateUrls[10],
+        description: 'Este proyecto fue la **prueba de fuego**. Apliqué mi conjunto de herramientas completo (**SQL, R, Tableau**) para resolver un problema de negocio real, demostrando mi capacidad para entregar una solución de datos integral.',
+        skills: ['Integración de Herramientas', 'Resolución de Problemas', 'Impacto Empresarial'],
+        emojis: ['🛠️', '✅']
     },
     { 
         title: 'Ética y Privacidad en el Análisis',
-        description: 'Tengo un firme entendimiento de la **ética de datos** y las normativas de privacidad (como GDPR). Me aseguro de que todos mis análisis se realicen con responsabilidad, minimizando sesgos y garantizando la confianza en los datos.',
+        url: certificateUrls[11],
+        description: 'Tengo un firme entendimiento de la **ética de datos** y las normativas de privacidad (como GDPR). Me aseguro de que todos mis análisis se realicen con responsabilidad, minimizando sesgos.',
+        skills: ['Ética', 'GDPR', 'Privacidad', 'Sesgos'],
+        emojis: ['⚖️', '🔒']
     },
 ];
 
-// --- INTERFAZ DEL PROYECTO ACTUALIZADA (Sin cambios) ---
+// --- INTERFAZ DEL PROYECTO (Actualizada para incluir description y skills) ---
 interface Project {
     title: string;
     fullDescription: string;
     stack: string;
     images: string[]; 
     projectType?: 'certificate' | 'standard'; 
-    subProjectDetails?: { title: string; description: string }[];
+    subProjectDetails?: { title: string; url: string; description?: string; skills?: string[]; emojis?: string[] }[];
 }
 
 // --- DATOS DE PROYECTOS ACTUALIZADOS ---
@@ -165,28 +208,12 @@ export function ProjectDetail() {
     const project = id ? dummyProjectDetails[id] : undefined;
 
     const ACCENT_COLOR = '#9c2da6'; // Color morado de acento
+    const SECONDARY_COLOR = '#00f0ff'; // Color cian de acento
     const BACKGROUND_URL = ImgFondo;
 
-    // --- LÓGICA DEL CARRUSEL AUTOMÁTICO (solo si tiene más de una imagen) ---
-    useEffect(() => {
-        setCurrentImageIndex(0);
-        
-        // Desactiva el carrusel automático para el proyecto de certificados para priorizar el control manual
-        // Solo lo dejamos si no es el proyecto de certificado O si solo tiene un elemento
-        if (!project || project.images.length <= 1 || project.projectType === 'certificate') {
-            return;
-        }
+    // Lógica de carrusel automático omitida para certificados
 
-        const interval = setInterval(() => {
-            setCurrentImageIndex(prevIndex => 
-                (prevIndex + 1) % project.images.length 
-            );
-        }, 5000); 
-
-        return () => clearInterval(interval); 
-    }, [project]);
-
-    // --- NUEVA LÓGICA DE NAVEGACIÓN MANUAL ---
+    // --- LÓGICA DE NAVEGACIÓN MANUAL (Flechas) ---
     const goToPrevious = () => {
         if (!project) return;
         setCurrentImageIndex(prevIndex => 
@@ -238,12 +265,12 @@ export function ProjectDetail() {
         );
     }
     
-    // ⭐ Obtener los detalles del subproyecto actual
+    // Obtener los detalles del subproyecto actual
     const currentSubProject = project.projectType === 'certificate' && project.subProjectDetails 
         ? project.subProjectDetails[currentImageIndex] 
         : null;
 
-    // --- ESTILOS (Añadido estilo de botón de carrusel) ---
+    // --- ESTILOS ---
     const detailStyle: React.CSSProperties = {
         fontFamily: 'Poppins, sans-serif', 
         backgroundColor: 'rgba(10, 10, 25, 1.0)', 
@@ -280,28 +307,41 @@ export function ProjectDetail() {
         objectFit: project.projectType === 'certificate' ? 'contain' : 'cover', 
     };
 
-    // Estilo para las flechas de navegación
     const navButtonStyle: React.CSSProperties = {
         position: 'absolute',
         top: '50%',
         transform: 'translateY(-50%)',
-        backgroundColor: 'rgba(156, 45, 166, 0.7)', // Morado semi-transparente
+        backgroundColor: 'rgba(156, 45, 166, 0.7)', 
         color: 'white',
         border: 'none',
         padding: '10px',
         cursor: 'pointer',
-        zIndex: 20, // Por encima de las imágenes
+        zIndex: 20, 
         fontSize: '1.5rem',
         fontWeight: 'bold',
         borderRadius: '4px',
         transition: 'background-color 0.3s',
         userSelect: 'none',
     };
+    
+    // Estilo para el Badge de Tecnología (NUEVO)
+    const skillBadgeStyle: React.CSSProperties = {
+        display: 'inline-block',
+        backgroundColor: '#1a1a3a', // Fondo muy oscuro
+        color: SECONDARY_COLOR, // Cian
+        padding: '0.3rem 0.6rem',
+        borderRadius: '4px',
+        marginRight: '0.5rem',
+        marginTop: '0.5rem',
+        fontSize: '0.85rem',
+        border: `1px solid ${SECONDARY_COLOR}`,
+    };
+
 
     // --- RENDERIZADO DEL COMPONENTE ---
     return (
         <>
-            {/* ... Modal de confirmación (sin cambios) ... */}
+            {/* --- MODAL DE CONFIRMACIÓN (Oculto por defecto) --- */}
             {modalState.visible && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -313,7 +353,7 @@ export function ProjectDetail() {
                         padding: '2rem', width: '90%', maxWidth: '500px', boxShadow: `0 0 20px ${ACCENT_COLOR}`,
                         color: '#e0f2f7', textAlign: 'center',
                     }} onClick={(e) => e.stopPropagation()}>
-                        <h2 style={{ color: '#00f0ff', marginBottom: '1rem', fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>{modalState.title}</h2>
+                        <h2 style={{ color: SECONDARY_COLOR, marginBottom: '1rem', fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>{modalState.title}</h2>
                         <p style={{ marginBottom: '2rem', fontSize: '1rem', lineHeight: 1.6 }}>{modalState.message}</p>
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
                             <Button variant="light" onClick={closeModal}>Cancelar</Button>
@@ -381,19 +421,20 @@ export function ProjectDetail() {
                 <h1 style={{ 
                     fontFamily: 'Poppins, sans-serif',
                     fontWeight: 800,
-                    color: '#00f0ff',
+                    color: SECONDARY_COLOR,
                     fontSize: '2.5rem',
                     marginBottom: '1rem',
                     borderBottom: `2px solid ${ACCENT_COLOR}`, 
                     paddingBottom: '0.5rem'
                 }}>
-                    {/* ⭐ Si es certificado, muestra el título del subproyecto, si no, el título principal */}
+                    {/* Si es certificado, muestra el título del subproyecto, si no, el título principal */}
                     {currentSubProject ? currentSubProject.title : project.title}
                 </h1>
 
-                {/* --- DETALLE DEL SUBPROYECTO --- */}
+                {/* --- DETALLE DEL SUBPROYECTO (DINÁMICO CON DESCRIPCIÓN Y HABILIDADES) --- */}
                 {currentSubProject && (
-                    <div style={{ marginBottom: '2rem', padding: '1rem', border: `1px dashed ${ACCENT_COLOR}`, borderRadius: '8px', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                    <div style={{ marginBottom: '1.5rem', padding: '1.5rem', border: `2px solid ${ACCENT_COLOR}`, borderRadius: '10px', backgroundColor: 'rgba(10, 10, 25, 0.7)', boxShadow: `0 0 10px ${ACCENT_COLOR}` }}>
+                        
                         <h2 style={{ 
                             fontFamily: 'Poppins, sans-serif', 
                             fontWeight: 700,
@@ -401,12 +442,25 @@ export function ProjectDetail() {
                             fontSize: '1.4rem',
                             marginBottom: '0.5rem'
                         }}>
-                            {/* ⭐ Aquí mostramos la descripción del subproyecto, ya que el título está arriba */}
-                            Detalle del Módulo {currentImageIndex + 1}
+                            Verificacion ( Certificated : {currentImageIndex + 1}/13)
                         </h2>
-                        <p style={{ color: '#e0f2f7', fontSize: '0.95rem', lineHeight: 1.5 }}>
+                        
+                        {/* Descripción Breve y Dinámica */}
+                        <p style={{ color: '#e0f2f7', fontSize: '1rem', lineHeight: 1.6, marginBottom: '1rem' }}>
                             {currentSubProject.description}
                         </p>
+
+                        {/* Listado de Habilidades / Tecnologías con Emojis */}
+                        <p style={{ color: ACCENT_COLOR, fontWeight: 600, fontSize: '1rem', marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+                            Habilidades Clave {currentSubProject.emojis && currentSubProject.emojis.join(' ')}
+                        </p>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '0' }}>
+                            {currentSubProject.skills && currentSubProject.skills.map((skill, i) => (
+                                <span key={i} style={skillBadgeStyle}>
+                                    {skill}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 )}
                 
@@ -417,27 +471,66 @@ export function ProjectDetail() {
                     </p>
                 )}
                 
+                {/* --- BLOQUE DE ACCIÓN Y TECNOLOGÍAS CLAVE (MODIFICADO) --- */}
                 <h2 style={{ 
                     fontFamily: 'Poppins, sans-serif', 
                     fontWeight: 600,
                     color: ACCENT_COLOR, 
                     fontSize: '1.2rem',
-                    marginTop: '1.5rem',
+                    marginTop: '2.5rem', // Separación del bloque anterior
                     marginBottom: '0.5rem'
                 }}>
-                    [ STACK UTILIZADO ]
+                    [ ACCIÓN Y TECNOLOGÍAS CLAVE ]
                 </h2>
-                <p style={{ color: '#b0e0e6', fontSize: '0.9rem', marginBottom: '3rem' }}>
+                {/* Descripción General del Stack (se mantiene del original) */}
+                <p style={{ color: '#b0e0e6', fontSize: '0.9rem', marginBottom: '2rem' }}>
                     {project.stack}
                 </p>
+
+                {/* ⭐ BOTÓN DE ENLACE EXTERNO (CERTIFICADO) AHORA AQUÍ ⭐ */}
+                {currentSubProject && (
+                    <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+                        <a 
+                            href={currentSubProject.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{
+                                fontFamily: 'Poppins, sans-serif',
+                                fontWeight: 700,
+                                backgroundColor: ACCENT_COLOR, 
+                                color: 'white',
+                                padding: '0.75rem 1.5rem',
+                                borderRadius: '8px',
+                                fontSize: '1.1rem',
+                                textAlign: 'center',
+                                textDecoration: 'none', 
+                                cursor: 'pointer',
+                                boxShadow: `0 4px 15px rgba(156, 45, 166, 0.4)`,
+                                transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = SECONDARY_COLOR;
+                                e.currentTarget.style.color = '#1a1a3a';
+                                e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 240, 255, 0.6)`;
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = ACCENT_COLOR;
+                                e.currentTarget.style.color = 'white';
+                                e.currentTarget.style.boxShadow = `0 4px 15px rgba(156, 45, 166, 0.4)`;
+                            }}
+                        >
+                            🔗 VER CREDENCIAL OFICIAL DE {currentSubProject.title.toUpperCase()}
+                        </a>
+                    </div>
+                )}
                 
-                {/* --- BOTONES --- */}
+                {/* --- BOTONES DE CV --- */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
                     <Button onClick={() => navigate('/projects')} variant="light" style={{ width: 'auto' }}>
                         &lt; Volver a Proyectos
                     </Button>
 
-                    {/* --- BOTONES DE CV (Condicionales, SÓLO para 'certificate') --- */}
+                    {/* Botones de CV (Condicionales, SÓLO para 'certificate') */}
                     {project.projectType === 'certificate' && (
                         <>
                             <Button 

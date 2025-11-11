@@ -2,6 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImgProf from '../img/Foto Perfil.jpg'; // Asegúrate de que esta ruta sea correcta
 
+// --- IMPORTACIONES DE CV (ASUME QUE ESTÁN DISPONIBLES) ---
+// En una aplicación real, estos archivos serían importados o sus rutas pasadas como props.
+const cvEsp = '../img/1.CV_Luis_Gutierrez_Deffit_ES.pdf';
+const cvEng = '../img/1.Data analytics -LuisDeffit .pdf';
+
 // Datos de perfil enfocados en el valor para el reclutador
 const profileData = {
     name: "Luis Alejandro Gutiérrez Deffit",
@@ -19,12 +24,9 @@ const profileData = {
 };
 
 // 💡 Helper para detectar si estamos en un tamaño de pantalla grande (simulando Media Query)
-// En un entorno real, usarías un hook para esto (ej: useMediaQuery), pero para estilos inline,
-// usaremos un valor fijo para el ejemplo de desktop. 
 const IS_DESKTOP = window.innerWidth >= 768;
 
 export function BannerProfile() {
-    // Nota: useNavigate requiere que el componente esté dentro de un Router en un entorno de aplicación real.
     const navigate = useNavigate();
 
     // Colores y fuentes de la estética científica (Orbitron y Roboto Mono)
@@ -33,9 +35,16 @@ export function BannerProfile() {
         color: '#e0f2f7',
     };
 
+    // Color principal de acento para los bordes y títulos (el nuevo color morado)
+    const ACCENT_COLOR = '#9c2da6';
+    // Color secundario de acento (Cian)
+    const SECONDARY_COLOR = '#00f0ff';
+    // Color de sombra adaptado para el nuevo color ACCENT_COLOR (RGB 156, 45, 166)
+    const ACCENT_SHADOW = 'rgba(156, 45, 166, 0.9)';
+
     // Estilo para los enlaces de contacto y hover
     const contactLinkStyle: React.CSSProperties = {
-        color: '#00f0ff',
+        color: SECONDARY_COLOR, // Cian
         textDecoration: 'none',
         fontWeight: 'normal',
         transition: 'color 0.3s',
@@ -44,16 +53,58 @@ export function BannerProfile() {
     };
     
     // Función para manejar el efecto hover en los enlaces
-    // El color de hover ha sido actualizado a '#9c2da6'
     const handleHover = (e: React.MouseEvent<HTMLAnchorElement>, color: string) => {
         e.currentTarget.style.color = color;
     };
 
-    // Color principal de acento para los bordes y títulos (el nuevo color)
-    const ACCENT_COLOR = '#9c2da6';
+    // --- FUNCIÓN DE DESCARGA DE CV (SIMPLIFICADA) ---
+    // En el contexto de un solo archivo, simulamos la acción de descarga
+    const handleDownloadClick = (lang: 'ESP' | 'ENG') => {
+        const url = lang === 'ESP' ? cvEsp : cvEng;
+        const fileName = lang === 'ESP' ? 'CV_Luis_Deffit_ES.pdf' : 'CV_Luis_Deffit_EN.pdf';
+        
+        // Simulación de descarga con <a> temporal
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Mensaje de feedback (reemplaza alert en un entorno real)
+        console.log(`Iniciando descarga de CV en ${lang}...`);
+    };
 
-    // Color de sombra adaptado para el nuevo color ACCENT_COLOR (RGB 156, 45, 166)
-    const ACCENT_SHADOW = 'rgba(156, 45, 166, 0.9)';
+    // --- ESTILO DEL BOTÓN DE CV (USANDO LA CONFIGURACIÓN DEL CERTIFICADO) ---
+    const cvButtonStyle: React.CSSProperties = {
+        fontFamily: 'Roboto Mono, monospace',
+        fontWeight: 700,
+        backgroundColor: ACCENT_COLOR, 
+        color: 'white',
+        padding: '0.75rem 1.5rem',
+        borderRadius: '8px',
+        fontSize: '1rem',
+        textAlign: 'center',
+        textDecoration: 'none', 
+        cursor: 'pointer',
+        boxShadow: `0 4px 15px ${ACCENT_SHADOW}`,
+        transition: 'all 0.3s ease',
+        flexGrow: IS_DESKTOP ? 0 : 1, // Hace que sea más adaptable en móvil
+        whiteSpace: 'nowrap',
+    };
+
+    // Función de Hover para el Botón de CV
+    const handleCvHover = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, enter: boolean) => {
+        if (enter) {
+            e.currentTarget.style.backgroundColor = SECONDARY_COLOR;
+            e.currentTarget.style.color = '#1a1a3a';
+            e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 240, 255, 0.6)`;
+        } else {
+            e.currentTarget.style.backgroundColor = ACCENT_COLOR;
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.boxShadow = `0 4px 15px ${ACCENT_SHADOW}`;
+        }
+    };
 
 
     return (
@@ -75,7 +126,7 @@ export function BannerProfile() {
                 flexDirection: 'column', 
             }}
         >
-            {/* CONTENEDOR CLICABLE: Define el layout de Perfil */}
+            {/* CONTENEDOR PRINCIPAL */}
             <div
                 onClick={() => navigate('/')}
                 style={{ 
@@ -86,7 +137,8 @@ export function BannerProfile() {
                     gap: IS_DESKTOP ? '3rem' : '1rem', 
                     maxWidth: '1000px',
                     width: '100%',
-                    padding: '0 1rem'
+                    padding: '0 1rem',
+                    marginBottom: IS_DESKTOP ? '1.5rem' : '1rem'
                 }}
             >
                 {/* 1. IMAGEN DE PERFIL */}
@@ -95,10 +147,8 @@ export function BannerProfile() {
                     height: '160px',
                     borderRadius: '50%',
                     overflow: 'hidden',
-                    // Borde de imagen actualizado
                     border: `5px solid ${ACCENT_COLOR}`, 
                     marginBottom: IS_DESKTOP ? '0' : '1.5rem', 
-                    // Sombra de imagen actualizada
                     boxShadow: `0 0 25px ${ACCENT_SHADOW}`, 
                     flexShrink: 0
                 }}>
@@ -109,14 +159,14 @@ export function BannerProfile() {
                     />
                 </div>
                 
-                {/* 2. TEXTO DEL PERFIL */}
+                {/* 2. TEXTO DEL PERFIL Y CONTACTO */}
                 <div style={{
                     textAlign: IS_DESKTOP ? 'left' : 'center',
                     flexGrow: 1, 
                 }}>
                     <h1 style={{ 
                         fontFamily: 'Orbitron, sans-serif',
-                        color: '#00f0ff',
+                        color: SECONDARY_COLOR,
                         fontSize: IS_DESKTOP ? '3.2rem' : '2.8rem', 
                         textShadow: '0 0 15px rgba(0, 240, 255, 0.8)',
                         marginBottom: '0.25rem',
@@ -124,10 +174,10 @@ export function BannerProfile() {
                         {profileData.name}
                     </h1>
                     
-                    {/* H2 - ROL: Color actualizado */}
+                    {/* H2 - ROL */}
                     <h2 style={{ 
                         fontFamily: 'Orbitron, sans-serif',
-                        color: ACCENT_COLOR, // Usando el nuevo color
+                        color: ACCENT_COLOR, // Morado
                         fontSize: IS_DESKTOP ? '1.7rem' : '1.4rem',
                         fontWeight: 'bold',
                         letterSpacing: '2px',
@@ -149,22 +199,22 @@ export function BannerProfile() {
                         lineHeight: '1.4',
                         maxWidth: '650px',
                         margin: IS_DESKTOP ? '0.5rem 0 1.5rem 0' : '0.5rem auto 1.5rem auto',
-                        // Borde lateral actualizado
                         borderLeft: IS_DESKTOP ? `3px solid ${ACCENT_COLOR}` : 'none', 
                         paddingLeft: IS_DESKTOP ? '10px' : '0'
                     }}>
                         {profileData.tagline}
                     </p>
                     
-                    {/* INFORMACIÓN DE CONTACTO - Con hover actualizado */}
+                    {/* INFORMACIÓN DE CONTACTO - Línea superior */}
                     <div style={{
                         marginTop: '1rem',
                         fontSize: IS_DESKTOP ? '1rem' : '0.9rem',
                         color: '#b0e0e6',
-                        display: IS_DESKTOP ? 'flex' : 'block',
+                        display: 'flex',
                         justifyContent: IS_DESKTOP ? 'flex-start' : 'center',
                         gap: IS_DESKTOP ? '1.5rem' : '0.5rem',
-                        flexWrap: 'wrap'
+                        flexWrap: 'wrap',
+                        marginBottom: '1.5rem' // Espacio antes del botón de CV
                     }}>
                         {/* WhatsApp Link */}
                         <p style={{ margin: 0 }}>
@@ -173,11 +223,10 @@ export function BannerProfile() {
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 style={{ ...contactLinkStyle }}
-                                // Color de hover actualizado
                                 onMouseOver={(e) => handleHover(e, ACCENT_COLOR)}
-                                onMouseOut={(e) => handleHover(e, '#00f0ff')}
+                                onMouseOut={(e) => handleHover(e, SECONDARY_COLOR)}
                             >
-                                <span style={{ color: '#00f0ff', marginRight: '5px' }}>💬</span> 
+                                <span style={{ color: SECONDARY_COLOR, marginRight: '5px' }}>💬</span> 
                                 WhatsApp: {profileData.whatsappPhone}
                             </a>
                         </p>
@@ -187,11 +236,10 @@ export function BannerProfile() {
                             <a 
                                 href={`mailto:${profileData.email}`} 
                                 style={{ ...contactLinkStyle }}
-                                // Color de hover actualizado
                                 onMouseOver={(e) => handleHover(e, ACCENT_COLOR)}
-                                onMouseOut={(e) => handleHover(e, '#00f0ff')}
+                                onMouseOut={(e) => handleHover(e, SECONDARY_COLOR)}
                             >
-                                <span style={{ color: '#00f0ff', marginRight: '5px' }}>📧</span> 
+                                <span style={{ color: SECONDARY_COLOR, marginRight: '5px' }}>📧</span> 
                                 {profileData.email}
                             </a>
                         </p>
@@ -203,16 +251,44 @@ export function BannerProfile() {
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 style={{ ...contactLinkStyle }}
-                                // Color de hover actualizado
                                 onMouseOver={(e) => handleHover(e, ACCENT_COLOR)}
-                                onMouseOut={(e) => handleHover(e, '#00f0ff')}
+                                onMouseOut={(e) => handleHover(e, SECONDARY_COLOR)}
                             >
-                                <span style={{ color: '#00f0ff', marginRight: '5px' }}>🔗</span> 
+                                <span style={{ color: SECONDARY_COLOR, marginRight: '5px' }}>🔗</span> 
                                 Perfil de LinkedIn
                             </a>
                         </p>
                     </div>
                 </div>
+            </div>
+            
+            {/* --- NUEVO: BOTÓN DE DESCARGA DE CV --- */}
+            <div style={{ 
+                width: IS_DESKTOP ? 'auto' : '90%', 
+                display: 'flex', 
+                gap: '1rem', 
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                margin: '0 auto',
+                paddingTop: '1rem',
+                borderTop: `1px dashed ${ACCENT_COLOR}`
+            }}>
+                <button 
+                    onClick={() => handleDownloadClick('ESP')}
+                    style={cvButtonStyle}
+                    onMouseEnter={(e) => handleCvHover(e, true)}
+                    onMouseLeave={(e) => handleCvHover(e, false)}
+                >
+                    ⬇️ Descargar CV (Español)
+                </button>
+                <button 
+                    onClick={() => handleDownloadClick('ENG')}
+                    style={cvButtonStyle}
+                    onMouseEnter={(e) => handleCvHover(e, true)}
+                    onMouseLeave={(e) => handleCvHover(e, false)}
+                >
+                    ⬇️ Download CV (English)
+                </button>
             </div>
         </header>
     );
