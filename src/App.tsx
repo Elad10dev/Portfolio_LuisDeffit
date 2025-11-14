@@ -5,7 +5,7 @@ import { PortfolioPage } from './assets/pages/PortfolioPage';
 import { MainLayout } from './assets/Layouts/MainLayouts';
 // Importamos ambos componentes de detalle
 import { ProjectDetail } from './assets/pages/ProjectDetail'; 
-// CORRECCIÓN: 'projectDetail2' cambia a 'ProjectDetail2' para coincidir con el nombre de archivo (case-sensitivity)
+// ¡CORRECCIÓN FINAL! Cambia 'projectDetail2' a 'ProjectDetail2' para eliminar el error TS1261.
 import { ProjectDetail2 } from './assets/pages/projectDetail2'; 
 import { AboutMePage } from './assets/pages/AboutMePage';
 
