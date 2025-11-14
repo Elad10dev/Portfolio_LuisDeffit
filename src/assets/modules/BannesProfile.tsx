@@ -1,33 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react'; // --- MODIFICADO --- (Importamos useState)
 import { useNavigate } from 'react-router-dom';
-import ImgProf from '../img/Foto Perfil.jpg'; // Asegúrate de que esta ruta sea correcta
+import ImgProf from '../img/Foto Perfil.jpg'; 
+
+// --- NUEVA IMPORTACIÓN DEL ICONO GIF ---
+// Asumiendo que 'analitica.gif' es el que quieres usar para descargar
+import ImgDownload from '../img/analitica.gif'; 
 
 // --- IMPORTACIONES DE CV (ASUME QUE ESTÁN DISPONIBLES) ---
-// En una aplicación real, estos archivos serían importados o sus rutas pasadas como props.
 const cvEsp = '../img/1.CV_Luis_Gutierrez_Deffit_ES.pdf';
 const cvEng = '../img/1.Data analytics -LuisDeffit .pdf';
 
 // Datos de perfil enfocados en el valor para el reclutador
 const profileData = {
     name: "Luis Alejandro Gutiérrez Deffit",
-    // Título de alto impacto que resume la especialización
     role: "DATA ANALYST | BI SPECIALIST | IMPACTO EN SALUD", 
-    // Tagline potente: conecta la habilidad técnica con el resultado de negocio
     tagline: "Transformando datos complejos en decisiones estratégicas que optimizan la infraestructura y el rendimiento empresarial.",
-    // El número se usará para WhatsApp, por lo que se nombra así.
-    whatsappPhone: "+54 9 11 2389-8273", // Se mantiene el formato visible
-    // Número para el link de WhatsApp (Formato internacional sin símbolos, incluyendo el 9 después del 54)
+    whatsappPhone: "+54 9 11 2389-8273", 
     whatsappLink: "5491123898273", 
     email: "luis2692@gmail.com", 
     linkedin: "https://www.linkedin.com/in/luisagdeffit/", 
     imageUrl: ImgProf,
 };
 
-// 💡 Helper para detectar si estamos en un tamaño de pantalla grande (simulando Media Query)
+// Helper para detectar si estamos en un tamaño de pantalla grande (simulando Media Query)
 const IS_DESKTOP = window.innerWidth >= 768;
 
 export function BannerProfile() {
     const navigate = useNavigate();
+    
+    // --- NUEVO: ESTADOS PARA LA ANIMACIÓN DE CLICK ---
+    const [isAnimatingEsp, setIsAnimatingEsp] = useState(false);
+    const [isAnimatingEng, setIsAnimatingEng] = useState(false);
 
     // Colores y fuentes de la estética científica (Orbitron y Roboto Mono)
     const baseStyle: React.CSSProperties = {
@@ -35,11 +38,8 @@ export function BannerProfile() {
         color: '#e0f2f7',
     };
 
-    // Color principal de acento para los bordes y títulos (el nuevo color morado)
     const ACCENT_COLOR = '#9c2da6';
-    // Color secundario de acento (Cian)
     const SECONDARY_COLOR = '#00f0ff';
-    // Color de sombra adaptado para el nuevo color ACCENT_COLOR (RGB 156, 45, 166)
     const ACCENT_SHADOW = 'rgba(156, 45, 166, 0.9)';
 
     // Estilo para los enlaces de contacto y hover
@@ -57,13 +57,11 @@ export function BannerProfile() {
         e.currentTarget.style.color = color;
     };
 
-    // --- FUNCIÓN DE DESCARGA DE CV (SIMPLIFICADA) ---
-    // En el contexto de un solo archivo, simulamos la acción de descarga
+    // --- FUNCIÓN DE DESCARGA DE CV (SIN CAMBIOS) ---
     const handleDownloadClick = (lang: 'ESP' | 'ENG') => {
         const url = lang === 'ESP' ? cvEsp : cvEng;
         const fileName = lang === 'ESP' ? 'CV_Luis_Deffit_ES.pdf' : 'CV_Luis_Deffit_EN.pdf';
         
-        // Simulación de descarga con <a> temporal
         const link = document.createElement('a');
         link.href = url;
         link.setAttribute('download', fileName);
@@ -71,42 +69,50 @@ export function BannerProfile() {
         link.click();
         document.body.removeChild(link);
         
-        // Mensaje de feedback (reemplaza alert en un entorno real)
         console.log(`Iniciando descarga de CV en ${lang}...`);
     };
 
-    // --- ESTILO DEL BOTÓN DE CV (USANDO LA CONFIGURACIÓN DEL CERTIFICADO) ---
-    const cvButtonStyle: React.CSSProperties = {
-        fontFamily: 'Roboto Mono, monospace',
-        fontWeight: 700,
-        backgroundColor: ACCENT_COLOR, 
-        color: 'white',
-        padding: '0.75rem 1.5rem',
-        borderRadius: '8px',
-        fontSize: '1rem',
-        textAlign: 'center',
-        textDecoration: 'none', 
-        cursor: 'pointer',
-        boxShadow: `0 4px 15px ${ACCENT_SHADOW}`,
-        transition: 'all 0.3s ease',
-        flexGrow: IS_DESKTOP ? 0 : 1, // Hace que sea más adaptable en móvil
-        whiteSpace: 'nowrap',
-    };
-
-    // Función de Hover para el Botón de CV
-    const handleCvHover = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, enter: boolean) => {
-        if (enter) {
-            e.currentTarget.style.backgroundColor = SECONDARY_COLOR;
-            e.currentTarget.style.color = '#1a1a3a';
-            e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 240, 255, 0.6)`;
+    // --- NUEVO: FUNCIÓN QUE GESTIONA EL CLICK (ANIMACIÓN + DESCARGA) ---
+    const triggerDownload = (lang: 'ESP' | 'ENG') => {
+        // 1. Activa la animación
+        if (lang === 'ESP') {
+            setIsAnimatingEsp(true);
         } else {
-            e.currentTarget.style.backgroundColor = ACCENT_COLOR;
-            e.currentTarget.style.color = 'white';
-            e.currentTarget.style.boxShadow = `0 4px 15px ${ACCENT_SHADOW}`;
+            setIsAnimatingEng(true);
         }
+
+        // 2. Llama a la descarga
+        handleDownloadClick(lang);
+
+        // 3. Resetea la animación después de 300ms
+        setTimeout(() => {
+            if (lang === 'ESP') {
+                setIsAnimatingEsp(false);
+            } else {
+                setIsAnimatingEng(false);
+            }
+        }, 300); // 300ms es la duración de la animación
     };
 
 
+    // --- NUEVO: ESTILO PARA LOS ICONOS GIF ---
+    const downloadIconStyle: React.CSSProperties = {
+        width: '80px', // Ajusta el tamaño del GIF
+        height: '80px', // Ajusta el tamaño del GIF
+        cursor: 'pointer',
+        transition: 'transform 0.3s ease, filter 0.3s',
+        filter: 'drop-shadow(0 0 5px rgba(0, 240, 255, 0.7))', // Sombra cian
+        objectFit: 'contain',
+    };
+
+    // --- NUEVO: ESTILO DE LA ANIMACIÓN (se aplica condicionalmente) ---
+    const iconAnimationStyle: React.CSSProperties = {
+        transform: 'scale(1.25)', // "Salta" al 125%
+        filter: 'drop-shadow(0 0 15px rgba(156, 45, 166, 1))', // Sombra morada intensa
+    };
+    
+    // (El resto del componente ... h1, h2, p, etc. ... no cambia)
+    
     return (
         <header 
             style={{ 
@@ -262,33 +268,57 @@ export function BannerProfile() {
                 </div>
             </div>
             
-            {/* --- NUEVO: BOTÓN DE DESCARGA DE CV --- */}
+            {/* --- MODIFICADO: BOTONES DE DESCARGA DE CV (AHORA ICONOS GIF) --- */}
             <div style={{ 
                 width: IS_DESKTOP ? 'auto' : '90%', 
                 display: 'flex', 
-                gap: '1rem', 
+                gap: '2rem', // Más espacio entre los GIFs
                 flexWrap: 'wrap',
                 justifyContent: 'center',
+                alignItems: 'center', // Para centrar los textos con los GIFs
                 margin: '0 auto',
                 paddingTop: '1rem',
                 borderTop: `1px dashed ${ACCENT_COLOR}`
             }}>
-                <button 
-                    onClick={() => handleDownloadClick('ESP')}
-                    style={cvButtonStyle}
-                    onMouseEnter={(e) => handleCvHover(e, true)}
-                    onMouseLeave={(e) => handleCvHover(e, false)}
-                >
-                    ⬇️ Descargar CV (Español)
-                </button>
-                <button 
-                    onClick={() => handleDownloadClick('ENG')}
-                    style={cvButtonStyle}
-                    onMouseEnter={(e) => handleCvHover(e, true)}
-                    onMouseLeave={(e) => handleCvHover(e, false)}
-                >
-                    ⬇️ Download CV (English)
-                </button>
+                
+                {/* ICONO ESPAÑOL */}
+                <div style={{ textAlign: 'center' }}>
+                    <img
+                        src={ImgDownload}
+                        alt="Descargar CV en Español"
+                        title="Descargar CV (Español)"
+                        onClick={() => triggerDownload('ESP')}
+                        style={{ 
+                            ...downloadIconStyle,
+                            ...(isAnimatingEsp ? iconAnimationStyle : {}) // Aplica animación al click
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'} // Hover simple
+                        onMouseOut={(e) => {
+                            if (!isAnimatingEsp) e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    />
+                    <p style={{ margin: 0, marginTop: '0.5rem', color: ACCENT_COLOR, fontWeight: 'bold' }}>CV (ESP)</p>
+                </div>
+                
+                {/* ICONO INGLÉS */}
+                <div style={{ textAlign: 'center' }}>
+                    <img
+                        src={ImgDownload}
+                        alt="Descargar CV en Inglés"
+                        title="Descargar CV (English)"
+                        onClick={() => triggerDownload('ENG')}
+                        style={{ 
+                            ...downloadIconStyle,
+                            ...(isAnimatingEng ? iconAnimationStyle : {}) // Aplica animación al click
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'} // Hover simple
+                        onMouseOut={(e) => {
+                            if (!isAnimatingEng) e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    />
+                    <p style={{ margin: 0, marginTop: '0.5rem', color: ACCENT_COLOR, fontWeight: 'bold' }}>CV (ENG)</p>
+                </div>
+
             </div>
         </header>
     );
