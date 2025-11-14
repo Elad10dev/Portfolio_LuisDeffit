@@ -7,7 +7,7 @@ import styles from './WelcomePage.module.scss';
 // Datos de ejemplo para el cliente
 // Datos de ejemplo para el cliente
 const portfolioData = {
-  name: "Luis Alejandro Gutiérrez Deffit",
+  name: "Luis Alejandro Gutiérrez Deffit ",
   title: "Data Analyst | Business Intelligence | Automatización", // Título resumido para el impacto
   tagline: "Especialista en BI: 3+ años impulsando decisiones críticas en salud a través de Databricks, Azure y automatización de KPIs.", // Tagline optimizado
   phone:"+54 11 2389 8273"
