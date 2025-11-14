@@ -20,10 +20,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, shortDescri
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
         transition: 'transform 0.3s ease-in-out',
         // Efecto hover simple
-        ':hover': {
-            transform: 'translateY(-5px)',
-            boxShadow: '0 8px 25px rgba(156, 45, 166, 0.5)'
-        }
+        
     };
 
     return (
