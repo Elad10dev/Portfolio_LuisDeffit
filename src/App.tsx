@@ -5,28 +5,28 @@ import { PortfolioPage } from './assets/pages/PortfolioPage';
 import { MainLayout } from './assets/Layouts/MainLayouts';
 // Importamos ambos componentes de detalle
 import { ProjectDetail } from './assets/pages/ProjectDetail'; 
-import { ProjectDetail2 } from './assets/pages/projectDetail2'; // Asegúrate de que el archivo se llame ProjectDetail2.tsx
+// CORRECCIÓN: 'projectDetail2' cambia a 'ProjectDetail2' para coincidir con el nombre de archivo (case-sensitivity)
+import { ProjectDetail2 } from './assets/pages/projectDetail2'; 
 import { AboutMePage } from './assets/pages/AboutMePage';
 
 // --- FUNCIÓN DE ENRUTAMIENTO INTELIGENTE ---
 // Esta función decide qué componente de detalle cargar según el ID
 function ProjectDetailRouter() {
-    const { id } = useParams<{ id: string }>(); // ¡Aquí se extrae el ID!
+    const { id } = useParams<{ id: string }>(); // ¡Aquí se extrae el ID!
 
-    switch (id) {
-        case 'certificados':
-            // Carga ProjectDetail, que debe contener los datos de 'certificados'
-            return <ProjectDetail />; 
-        case 'powerbii':
-            // Carga ProjectDetail2
-            return <ProjectDetail2 />;
-        // Puedes agregar más casos aquí si es necesario
-        default:
-            // Si el ID no coincide, ProjectDetail se encargará de mostrar el error "Proyecto no encontrado"
-            // O puedes crear un componente de error específico si lo prefieres.
-            // Para mantener la lógica anterior, simplemente cargamos ProjectDetail para que maneje el error.
-            return <ProjectDetail />; 
-    }
+    switch (id) {
+        case 'certificados':
+            // Carga ProjectDetail, que debe contener los datos de 'certificados'
+            return <ProjectDetail />; 
+        case 'powerbii':
+            // Carga ProjectDetail2
+            return <ProjectDetail2 />;
+        // Puedes agregar más casos aquí si es necesario
+        default:
+            // Si el ID no coincide, ProjectDetail se encargará de mostrar el error "Proyecto no encontrado"
+            // Para mantener la lógica anterior, simplemente cargamos ProjectDetail para que maneje el error.
+            return <ProjectDetail />; 
+    }
 }
 
 function App() {
