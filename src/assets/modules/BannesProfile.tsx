@@ -13,7 +13,7 @@ const cvEng = '../img/1.Data analytics -LuisDeffit .pdf';
 // Datos de perfil enfocados en el valor para el reclutador
 const profileData = {
     name: "Luis Alejandro Gutiérrez Deffit",
-    role: "DATA ANALYST | BI SPECIALIST | IMPACTO EN SALUD", 
+    role: "DATA ANALYST | BI SPECIALIST ", 
     tagline: "Transformando datos complejos en decisiones estratégicas que optimizan la infraestructura y el rendimiento empresarial.",
     whatsappPhone: "+54 9 11 2389-8273", 
     whatsappLink: "5491123898273", 

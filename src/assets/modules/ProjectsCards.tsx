@@ -194,7 +194,7 @@ export function BannerProfile() {
                         {profileData.role}
                         <br/>
                         <span style={{ fontSize: IS_DESKTOP ? '1.1rem' : '1rem', color: '#b0e0e6', fontWeight: 'normal' }}>
-                            Power BI | SQL | Python | Tableau | Automatización
+                            Data Analyst | Business Intelligence | Power BI | SQL | Python | Tableau | Automatización
                         </span>
                     </h2>
 

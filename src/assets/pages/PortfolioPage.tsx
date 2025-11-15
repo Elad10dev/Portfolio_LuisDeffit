@@ -12,23 +12,47 @@ import ImgCertificado1 from '../img/portada ceritificado 1.png';
 import ImgProyecto2 from '../img/tablero.png';
 // NOTA: Los siguientes proyectos usan imágenes placeholder temporales.
 
+// --- MAPEO DE TAGS A ICONOS (SIMULACIÓN CON EMOJIS) ---
+// Reemplazar estos emojis con componentes de librerías de iconos (e.g., react-icons)
+const getIconForTag = (tag: string): string => {
+    switch (tag.toLowerCase()) {
+        case 'sql': return '💾 SQL'; // Icono de base de datos
+        case 'r': return '📊 R'; // Icono de gráfica/análisis
+        case 'tableau': return '📈 Tableau'; // Icono de tendencia
+        case 'google': return '🔍 Google'; // Icono de Google
+        case 'power bi': return '🚀 Power BI'; // Icono de cohete/impulso
+        case 'dax': return '🔢 DAX'; // Icono de números
+        case 'kpis': return '🎯 KPIs'; // Icono de objetivo
+        case 'data modeling': return '📐 Model'; // Icono de regla/modelo
+        case 'microservicios': return '⚙️ Micro'; // Icono de engranaje
+        case 'nestjs': return '⚡ NestJS'; // Icono de rayo
+        case 'rabbitmq': return '📩 RabbitMQ'; // Icono de mensaje
+        case 'docker': return '🐳 Docker'; // Icono de ballena
+        case 'python': return '🐍 Python'; // Icono de serpiente
+        case 'machine learning': return '🧠 ML'; // Icono de cerebro
+        case 'xgboost': return '🌲 XGB'; // Icono de árbol
+        case 'scikit-learn': return '📚 SKLearn'; // Icono de libros
+        case 'etl': return '🔄 ETL'; // Icono de refrescar
+        case 'postgresql': return '🐘 PGSQL'; // Icono de elefante
+        case 'pandas': return '🐼 Pandas'; // Icono de panda
+        default: return tag;
+    }
+};
+
 // --- LISTA DE PROYECTOS EXTENDIDA (6 Proyectos) ---
 const projectList = [
     {
         id: 'certificados', 
-        title: 'Certificación Profesional: Google Data Analytics', // Título de la certificación
-        shortDescription: 'Análisis y visualización detallada del ciclo de vida de los datos, demostrando dominio de SQL, R, Tableau y técnicas avanzadas de Data Storytelling.', // Descripción mejorada para Certificados
-        // Usamos la imagen local importada para el primer proyecto
+        title: 'Certificación Profesional: Google Data Analytics',
+        // shortDescription: 'Análisis y visualización detallada del ciclo de vida de los datos...', // DESCRIPCIÓN ELIMINADA
         image: ImgCertificado1, 
         tags: ['SQL', 'R', 'Tableau', 'Google'],
-        // Propiedad para indicar si el proyecto tiene un componente de destino
         hasComponent: true 
     },
     {
         id: 'powerbii', 
-        title: 'Dashboard de Gestión de Prestadores (Fase I)', // Título de Power BI Fase I
-        shortDescription: 'Implementación inicial de un dashboard de Business Intelligence en Power BI, enfocado en el seguimiento de métricas clave (KPIs) de captación y rendición de cuentas (funnel de personal).', // Descripción profesional para Power BI
-        // Usamos la imagen local importada para el segundo proyecto
+        title: 'Dashboard de Gestión de Prestadores (Fase I)',
+        // shortDescription: 'Implementación inicial de un dashboard de Business Intelligence en Power BI...', // DESCRIPCIÓN ELIMINADA
         image: ImgProyecto2, 
         tags: ['Power BI', 'DAX', 'KPIs', 'Data Modeling'],
         hasComponent: true 
@@ -36,8 +60,7 @@ const projectList = [
     {
         id: 'e-commerce-v3',
         title: 'Plataforma E-commerce Escalable',
-        shortDescription: 'Reingeniería de monolito a microservicios (NestJS, RabbitMQ) para 10k transacciones/segundo.',
-        // URL PLACEHOLDER: Imagen temporal para E-commerce
+        // shortDescription: 'Reingeniería de monolito a microservicios (NestJS, RabbitMQ) para 10k transacciones/segundo.', // DESCRIPCIÓN ELIMINADA
         image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=E-COMMERCE+MICROSERVICES',
         tags: ['Microservicios', 'NestJS', 'RabbitMQ', 'Docker'],
         hasComponent: false
@@ -45,8 +68,7 @@ const projectList = [
     {
         id: 'ml-model',
         title: 'Modelo de Predicción de Churn',
-        shortDescription: 'Implementación de un modelo de Machine Learning (XGBoost) para predecir la baja de clientes con un 92% de precisión.',
-        // URL PLACEHOLDER: Imagen temporal para ML Model
+        // shortDescription: 'Implementación de un modelo de Machine Learning (XGBoost) para predecir la baja de clientes con un 92% de precisión.', // DESCRIPCIÓN ELIMINADA
         image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=MACHINE+LEARNING+MODEL',
         tags: ['Python', 'Machine Learning', 'XGBoost', 'Scikit-learn'],
         hasComponent: false
@@ -54,8 +76,7 @@ const projectList = [
     {
         id: 'power-bi-dash',
         title: 'Dashboard de Rendimiento Comercial',
-        shortDescription: 'Creación de un dashboard interactivo en Power BI para seguimiento de KPIs de ventas en tiempo real.',
-        // URL PLACEHOLDER: Imagen temporal para Dashboard BI
+        // shortDescription: 'Creación de un dashboard interactivo en Power BI para seguimiento de KPIs de ventas en tiempo real.', // DESCRIPCIÓN ELIMINADA
         image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=POWER+BI+DASHBOARD',
         tags: ['Power BI', 'DAX', 'KPIs', 'Data Modeling'],
         hasComponent: false
@@ -63,8 +84,7 @@ const projectList = [
     {
         id: 'etl-pipeline',
         title: 'Pipeline de Datos con Python',
-        shortDescription: 'Desarrollo de un script ETL en Python para limpiar y transformar datos de múltiples fuentes y cargarlos a PostgreSQL.',
-        // URL PLACEHOLDER: Imagen temporal para ETL
+        // shortDescription: 'Desarrollo de un script ETL en Python para limpiar y transformar datos de múltiples fuentes y cargarlos a PostgreSQL.', // DESCRIPCIÓN ELIMINADA
         image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=PYTHON+ETL+PIPELINE',
         tags: ['Python', 'ETL', 'PostgreSQL', 'Pandas'],
         hasComponent: false
@@ -73,7 +93,14 @@ const projectList = [
 
 // --- COMPONENTE ProjectCard ---
 interface ProjectProps {
-    project: typeof projectList[0];
+    // Se ha modificado la estructura de projectList para eliminar shortDescription si existía
+    project: {
+        id: string;
+        title: string;
+        image: string;
+        tags: string[];
+        hasComponent: boolean;
+    };
 }
 
 const cardStyle: React.CSSProperties = {
@@ -94,15 +121,17 @@ const titleStyle: React.CSSProperties = {
     marginBottom: '0.5rem',
 };
 
+// Estilo ajustado para el tag, ahora que contiene iconos/emojis y texto corto
 const tagStyle: React.CSSProperties = {
     display: 'inline-block',
     backgroundColor: '#333366',
     color: '#fff',
-    padding: '0.2rem 0.5rem',
-    borderRadius: '4px',
-    fontSize: '0.75rem',
-    marginRight: '0.4rem',
+    padding: '0.3rem 0.6rem', // Aumentado el padding para el icono
+    borderRadius: '15px', // Más redondo para verse como un "chip"
+    fontSize: '0.8rem', // Tamaño ligeramente mayor para el icono/texto
+    marginRight: '0.5rem',
     marginTop: '0.5rem',
+    fontWeight: 'bold',
 };
 
 const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
@@ -115,7 +144,6 @@ const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
         if (project.hasComponent) {
             // REDIRECCIÓN REAL: Usa el ID del proyecto en la ruta definida en App.tsx (/project/:id)
             navigate(`/project/${project.id}`);
-            // El alert() anterior se elimina para que la redirección sea directa.
         } else {
             // SIMULACIÓN para proyectos sin página de detalle aún
             alert('¡Próximamente! Este proyecto aún no tiene una página de detalle dedicada.');
@@ -159,17 +187,18 @@ const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
                 style={{ 
                     width: '100%', 
                     height: '200px', // Altura fija para las imágenes de la tarjeta
-                    objectFit: 'contain', // <-- ¡CORRECCIÓN APLICADA AQUÍ!
+                    objectFit: 'contain', 
                     borderBottom: '1px solid #9c2da6' 
                 }} 
             />
             <div style={clickableContainerStyle}>
                 <h3 style={titleStyle}>{project.title}</h3>
-                <p style={{ color: '#ccc', marginBottom: '1rem' }}>{project.shortDescription}</p>
+                {/* <p style={{ color: '#ccc', marginBottom: '1rem' }}>{project.shortDescription}</p> */} 
                 <div style={{ marginTop: 'auto' }}>
                     {project.tags.map(tag => (
                         <span key={tag} style={tagStyle}>
-                            {tag}
+                            {/* MOSTRAR ICONO/EMOJI EN LUGAR DE SOLO EL TAG */}
+                            {getIconForTag(tag)}
                         </span>
                     ))}
                 </div>
