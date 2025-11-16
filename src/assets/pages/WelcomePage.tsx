@@ -60,13 +60,7 @@ export function WelcomePage() {
           >
             Portafolio
           </Button>
-          <Button
-            onClick={() => navigate('/about-me')}
-            variant="light"
-            className={styles.button}
-          >
-            + Sobre Mí! 
-          </Button>
+          
         </div>
       </div>
     </div>

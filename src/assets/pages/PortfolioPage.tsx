@@ -10,6 +10,10 @@ import { useNavigate } from 'react-router-dom';
 // --- IMPORTACIONES DE IMÁGENES DE PROYECTOS (SOLO LAS EXISTENTES) ---
 import ImgCertificado1 from '../img/portada ceritificado 1.png';
 import ImgProyecto2 from '../img/tablero.png';
+import ImgProyecto3 from '../img/tablero2_0.png';
+import ImgProyecto4 from '../img/PPP1.jpg';
+import GifProyecto5_Cover from '../img/image48.gif';
+import ImgProyecto6_Cover from '../img/datos.png';
 // NOTA: Los siguientes proyectos usan imágenes placeholder temporales.
 
 // --- MAPEO DE TAGS A ICONOS (SIMULACIÓN CON EMOJIS) ---
@@ -58,37 +62,37 @@ const projectList = [
         hasComponent: true 
     },
     {
-        id: 'e-commerce-v3',
-        title: 'Plataforma E-commerce Escalable',
-        // shortDescription: 'Reingeniería de monolito a microservicios (NestJS, RabbitMQ) para 10k transacciones/segundo.', // DESCRIPCIÓN ELIMINADA
-        image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=E-COMMERCE+MICROSERVICES',
-        tags: ['Microservicios', 'NestJS', 'RabbitMQ', 'Docker'],
-        hasComponent: false
-    },
+        id: 'powerbiii', // El ID para la Fase II
+        title: 'Dashboard de Gestión de Prestadores (Fase II)',
+        image: ImgProyecto3, // Imagen de portada para la Fase II
+        // (Si no tienes portada, usa un placeholder)
+        // image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=POWER+BI+FASE+II',
+        tags: ['Power BI', 'DAX', 'KPIs', 'Optimización'],
+        hasComponent: true // Es clickeable
+    },
     {
-        id: 'ml-model',
-        title: 'Modelo de Predicción de Churn',
-        // shortDescription: 'Implementación de un modelo de Machine Learning (XGBoost) para predecir la baja de clientes con un 92% de precisión.', // DESCRIPCIÓN ELIMINADA
-        image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=MACHINE+LEARNING+MODEL',
-        tags: ['Python', 'Machine Learning', 'XGBoost', 'Scikit-learn'],
-        hasComponent: false
-    },
+        id: 'PPP', // ID para el nuevo proyecto
+        title: 'PPP',
+        image: ImgProyecto4, // Imagen de portada para este proyecto
+        // (o usa un placeholder)
+        // image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=ANALISIS+DE+CAUSA+RAIZ',
+        tags: ['Power BI', 'Análisis Causa Raíz', 'KPIs', 'ETL'],
+        hasComponent: true // Es clickeable
+    },
     {
-        id: 'power-bi-dash',
-        title: 'Dashboard de Rendimiento Comercial',
-        // shortDescription: 'Creación de un dashboard interactivo en Power BI para seguimiento de KPIs de ventas en tiempo real.', // DESCRIPCIÓN ELIMINADA
-        image: 'https://placehold.co/600x400/1a1a3a/00f0ff?text=POWER+BI+DASHBOARD',
-        tags: ['Power BI', 'DAX', 'KPIs', 'Data Modeling'],
-        hasComponent: false
-    },
-    {
-        id: 'etl-pipeline',
-        title: 'Pipeline de Datos con Python',
-        // shortDescription: 'Desarrollo de un script ETL en Python para limpiar y transformar datos de múltiples fuentes y cargarlos a PostgreSQL.', // DESCRIPCIÓN ELIMINADA
-        image: 'https://placehold.co/600x400/1a1a3a/9c2da6?text=PYTHON+ETL+PIPELINE',
-        tags: ['Python', 'ETL', 'PostgreSQL', 'Pandas'],
-        hasComponent: false
-    },
+        id: 'sharepoint', // ID para el nuevo proyecto
+        title: 'Portal Interno de Desarrollo (SharePoint)',
+        image: GifProyecto5_Cover, // GIF de portada para este proyecto
+        tags: ['SharePoint', 'Gestión', 'Procesos', 'Salesforce'],
+        hasComponent: true // Es clickeable
+    },
+   {
+        id: 'rrhh-dashboard', // ID para el proyecto 6
+        title: 'Dashboard Operativo de RRHH (Rotación)',
+        image: ImgProyecto6_Cover, // Imagen única de portada
+        tags: ['Power BI', 'RRHH', 'Rotación', 'KPIs'],
+        hasComponent: true // Es clickeable
+    },
 ];
 
 // --- COMPONENTE ProjectCard ---
